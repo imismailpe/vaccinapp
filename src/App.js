@@ -20,7 +20,7 @@ function App() {
         setLoading(false);
       })
       .catch(e => {
-        console.log("error:", e)
+        alert("error:", e)
         setLoading(false);
       })
   }, []);
@@ -33,7 +33,7 @@ function App() {
         setLoading(false);
       })
       .catch(e => {
-        console.log("error:", e);
+        alert("error:", e);
         setLoading(false);
       })
   }, [district]);
@@ -66,8 +66,9 @@ function App() {
                             return (
                               <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
                                 <div className='vaccineName'>{session.vaccine}</div>
-                                <div className='vaccineCapacity'>Available capacity: {session.available_capacity} Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
                                 <div className='vaccineDate'>{session.date}</div>
+                                <div className='vaccineCapacity'>Available capacity: {session.available_capacity}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
+                                <div className='slotContainer'>
                                 {
                                   session.slots.map(slot => {
                                     return (
@@ -75,6 +76,7 @@ function App() {
                                     )
                                   })
                                 }
+                                </div>
                               </div>
                             )
                           })
