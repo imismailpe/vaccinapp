@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/vaccinapp/static/css/main.6dd03250.chunk.css",
+    "main.css": "/vaccinapp/static/css/main.0a545972.chunk.css",
     "main.js": "/vaccinapp/static/js/main.460b706e.chunk.js",
     "main.js.map": "/vaccinapp/static/js/main.460b706e.chunk.js.map",
     "runtime-main.js": "/vaccinapp/static/js/runtime-main.0e960763.js",
@@ -10,13 +10,13 @@
     "static/js/3.ff10370f.chunk.js": "/vaccinapp/static/js/3.ff10370f.chunk.js",
     "static/js/3.ff10370f.chunk.js.map": "/vaccinapp/static/js/3.ff10370f.chunk.js.map",
     "index.html": "/vaccinapp/index.html",
-    "static/css/main.6dd03250.chunk.css.map": "/vaccinapp/static/css/main.6dd03250.chunk.css.map",
+    "static/css/main.0a545972.chunk.css.map": "/vaccinapp/static/css/main.0a545972.chunk.css.map",
     "static/js/2.fd32ec24.chunk.js.LICENSE.txt": "/vaccinapp/static/js/2.fd32ec24.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.0e960763.js",
     "static/js/2.fd32ec24.chunk.js",
-    "static/css/main.6dd03250.chunk.css",
+    "static/css/main.0a545972.chunk.css",
     "static/js/main.460b706e.chunk.js"
   ]
 }
