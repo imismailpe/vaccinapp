@@ -1,9 +1,11 @@
 {
   "name": "vaccinapp",
   "version": "0.1.0",
-  "homepage": "https://imismailpe.github.io/vaccineapp/",
+  "homepage": "https://imismailpe.github.io/vaccinapp/",
   "private": true,
   "dependencies": {
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
