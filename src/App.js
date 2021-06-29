@@ -41,47 +41,51 @@ function App() {
     <div className="App">
       <div>Select a district to see Covid vaccine slot details</div>
       <div>
-      {
-        loading === true ? 'Loading...'
-        : ''
-      }
-      </div>
-      {
-        districtList.map(district => {
-          return (
-            <div className='chatItem' key={district.district_id} onClick={() => setDistrict(district.district_id)}>{district.district_name}</div>
-          )
-        })
-      }
-      <div className='chatWindow'>
         {
-          centerList.length > 0 && centerList.map(center => {
-            return (
-              <div key={center.center_id} className='messageInBubble'>
-                <div className='centerName'>{center.name}-{center.block_name}</div>
-                <div className='centerAddress'>{center.address}-{center.pincode}</div>
-                <div className='centerFee'>{center.fee_type}</div>
-                {
-                  center.sessions.length > 0 && center.sessions.map(session => {
+          loading === true ? 'Loading...'
+            : <>
+              {
+                districtList.length > 0 ?
+                  districtList.map(district => {
                     return (
-                      <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
-                        <div className='vaccineName'>{session.vaccine}</div>
-                        <div className='vaccineCapacity'>Available capacity: {session.available_capacity} Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
-                        <div className='vaccineDate'>{session.date}</div>
+                      <div className='chatItem' key={district.district_id} onClick={() => setDistrict(district.district_id)}>{district.district_name}</div>
+                    )
+                  })
+                  : 'No Districts available'
+              }
+              <div className='chatWindow'>
+                {
+                  centerList.length > 0 ? centerList.map(center => {
+                    return (
+                      <div key={center.center_id} className='messageInBubble'>
+                        <div className='centerName'>{center.name}-{center.block_name}</div>
+                        <div className='centerAddress'>{center.address}-{center.pincode}</div>
+                        <div className='centerFee'>{center.fee_type}</div>
                         {
-                          session.slots.map(slot => {
+                          center.sessions.length > 0 && center.sessions.map(session => {
                             return (
-                              <div key={slot} className='slotTime'>{slot}</div>
+                              <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
+                                <div className='vaccineName'>{session.vaccine}</div>
+                                <div className='vaccineCapacity'>Available capacity: {session.available_capacity} Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
+                                <div className='vaccineDate'>{session.date}</div>
+                                {
+                                  session.slots.map(slot => {
+                                    return (
+                                      <div key={slot} className='slotTime'>{slot}</div>
+                                    )
+                                  })
+                                }
+                              </div>
                             )
                           })
                         }
                       </div>
                     )
                   })
+                    : 'No Centers are available for the selected district. Refresh after some time.'
                 }
               </div>
-            )
-          })
+            </>
         }
       </div>
     </div>
