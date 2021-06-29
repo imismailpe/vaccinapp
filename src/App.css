@@ -30,12 +30,16 @@
 }
 .chatItem{
   border: 1px solid gray;
+  border-radius: 3px;
   padding: 8px;
-  background-color: khaki;
+  background-color: rgb(210, 224, 243);
   margin: 0 0.5px 0.5px 0.5px;
   width: max-content;
   display: inline-block;
   cursor: pointer;
+}
+.selectedDist{
+  background-color: rgb(219, 177, 129);
 }
 .chatWindow{
   padding: 2px;
@@ -49,7 +53,7 @@
   grid-template-rows: repeat(5, max-content);
   grid-template-columns: repeat(8, 1fr);
   margin-bottom: 3px;
-  background-color: rgb(121, 177, 199);
+  background-color: rgb(166, 194, 206);
 }
 .centerName{
   font-size: large;
@@ -77,10 +81,10 @@
   overflow: auto;
 }
 .availableBG{
-  background-color: #a5e04b;
+  background-color: #a4c76f;
 }
 .notAvailableBG{
-  background-color: indianred;
+  background-color: rgb(214, 124, 124);
 }
 .vaccineDate{
   grid-row: 1/2;
@@ -100,7 +104,7 @@
   grid-row: 3/4;
   border: 1px solid green;
   border-radius: 5px;
-  background-color: gray;
+  background-color: rgb(172, 169, 169);
   padding: 5px;
   margin: 5px;
   display: inline-block;

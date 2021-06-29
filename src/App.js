@@ -46,9 +46,9 @@ function App() {
             : <>
               {
                 districtList.length > 0 ?
-                  districtList.map(district => {
+                  districtList.map(districtItem => {
                     return (
-                      <div className='chatItem' key={district.district_id} onClick={() => setDistrict(district.district_id)}>{district.district_name}</div>
+                      <div className={districtItem.district_id === district ? 'chatItem selectedDist': 'chatItem'} key={districtItem.district_id} onClick={() => setDistrict(districtItem.district_id)}>{districtItem.district_name}</div>
                     )
                   })
                   : 'No Districts available'
