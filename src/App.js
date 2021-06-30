@@ -46,11 +46,13 @@ function App() {
             : <>
               {
                 districtList.length > 0 ?
-                  districtList.map(districtItem => {
+                <div className='distList'>
+                  {districtList.map(districtItem => {
                     return (
                       <div className={districtItem.district_id === district ? 'chatItem selectedDist': 'chatItem'} key={districtItem.district_id} onClick={() => setDistrict(districtItem.district_id)}>{districtItem.district_name}</div>
                     )
-                  })
+                  })}
+                  </div>
                   : 'No Districts available'
               }
               <div className='chatWindow'>
@@ -59,8 +61,8 @@ function App() {
                     return (
                       <div key={center.center_id} className='messageInBubble'>
                         <div className='centerName'>{center.name}-{center.block_name}</div>
-                        <div className='centerAddress'>{center.address}-{center.pincode}</div>
                         <div className='centerFee'>{center.fee_type}</div>
+                        <div className='centerAddress'>{center.address} - {center.pincode}</div>
                         {
                           center.sessions.length > 0 && center.sessions.map(session => {
                             return (
