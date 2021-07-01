@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 const APIBASEURL = 'https://cdn-api.co-vin.in/api/v2';
-const DISTRICTLISTENDPOINT = '/admin/location/districts/'
+const DISTRICTLISTENDPOINT = '/admin/location/districts/';
 const KERALANUMBER = '17';
-const DATABYDISTRICTENDPOINT = '/appointment/sessions/public/calendarByDistrict?&district_id='
+const DATABYDISTRICTENDPOINT = '/appointment/sessions/public/calendarByDistrict?&district_id=';
 
 function App() {
   const [districtList, setDistrictList] = useState([]);
@@ -89,8 +89,8 @@ function App() {
               return (
                 <div key={center.center_id} className='messageInBubble'>
                   <div className='centerTitle'>
-                  <div className='centerName'>{center.name}-{center.block_name}</div>
-                  <div className={center.fee_type === 'Free' ? 'greenText centerFee' : 'redText centerFee'}>{center.fee_type}</div>
+                    <div className='centerName'>{center.name}-{center.block_name}</div>
+                    <div className={center.fee_type === 'Free' ? 'greenText centerFee' : 'redText centerFee'}>{center.fee_type}</div>
                   </div>
                   <div className='centerAddress'>{center.address} - {center.pincode}</div>
                   {
@@ -99,10 +99,10 @@ function App() {
                         <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
                           <div className='vaccineName'>{session.vaccine}</div>
                           <div className='vaccineDate'>{session.date}</div>
-                          <div className='vaccineCapacity'>Available capacity: {session.available_capacity}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
+                          <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'}-{session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
                           <div className='slotContainer'>
                             {
-                              session.slots.map(slot => {
+                              session.slots.length > 0 && session.slots.map(slot => {
                                 return (
                                   <div key={slot} className='slotTime'>{slot}</div>
                                 )
