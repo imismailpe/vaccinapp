@@ -77,8 +77,8 @@ function App() {
       <div>Data will auto refresh in every {INTERVAL/1000} seconds.</div>
       <div className='chatWindow'>
         {
-          loading === true ? 'Loading...'
-            :
+          // loading === true ? 'Loading...'
+          //   :
             centerList.length > 0 ? centerList.map(center => {
               return (
                 <div key={center.center_id} className='messageInBubble'>
