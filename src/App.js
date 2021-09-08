@@ -90,7 +90,8 @@ function App() {
                   {
                     center.sessions.length > 0 && center.sessions.map(session => {
                       return (
-                        <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
+                        loading === true ? 'Loading...'
+                        :<div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
                           <div className='vaccineName'>{session.vaccine}</div>
                           <div className='vaccineDate'>{session.date}</div>
                           <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
