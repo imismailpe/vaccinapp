@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 const APIBASEURL = 'https://cdn-api.co-vin.in/api/v2';
@@ -11,10 +11,12 @@ function App() {
   const [districtList, setDistrictList] = useState([]);
   const [centerList, setCenterList] = useState([]);
   const [district, setDistrict] = useState('');
+  const distRef = useRef(district);
+  distRef.current = district;
   const [loading, setLoading] = useState(false);
   const [loadingDist, setLoadingDist] = useState(false);
-  const [timer, setTimer] = useState(0);
-  let timerObj;
+  let timerId;
+  const INTERVAL = 10000;
   useEffect(() => {
     setLoadingDist(true);
     axios.get(`${APIBASEURL}${DISTRICTLISTENDPOINT}${KERALANUMBER}`)
@@ -27,37 +29,29 @@ function App() {
         alert("error:", e)
         setLoadingDist(false);
       })
+    //nested settimeout to refresh data every given interval
+    timerId = setTimeout(function tick() {
+      clearTimeout(timerId);
+      getData();
+      timerId = setTimeout(tick, INTERVAL);
+    }, INTERVAL);
+    return () => clearTimeout(timerId);
   }, []);
   useEffect(() => {
     getData();
   }, [district]);
-  // useEffect(() => {
-  //   if (timer === 0) {
-  //     // console.log("timer is zero")
-  //     // clearTimeout(timerObj);
-  //     getData();
-  //   }
-  //   if(timer > 0){
-  //     // timerObj = setTimeout(handleTimer, 1000);
-  //   }
-  // }, [timer]);
   const getData = () => {
     setLoading(true);
     const dateInput = moment().format('DD-MM-YYYY');
-    district && axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${district}&date=${dateInput}`)
+    distRef.current && axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${distRef.current}&date=${dateInput}`)
       .then(resp => {
         setCenterList(resp.data.centers);
         setLoading(false);
-        // setTimer(5000);
-        // handleTimer();
       })
       .catch(e => {
         alert("error:", e);
         setLoading(false);
       })
-  }
-  const handleTimer = () => {
-    setTimer(timer - 1000);
   }
   return (
     <div className="App">
@@ -80,7 +74,7 @@ function App() {
             </>
         }
       </div>
-      {/* <div>Data will refresh in {timer / 1000} seconds.</div> */}
+      <div>Data will auto refresh in every {INTERVAL/1000} seconds.</div>
       <div className='chatWindow'>
         {
           loading === true ? 'Loading...'
