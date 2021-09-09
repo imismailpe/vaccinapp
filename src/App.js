@@ -20,6 +20,7 @@ function App() {
   // let timerId;
   const INTERVAL = 10000;
   const [lastRefreshTime, setlastRefreshTime] = useState(moment().format('LTS'));
+  const timerId = useRef(null);
   useEffect(() => {
     setLoadingDist(true);
     axios.get(`${APIBASEURL}${DISTRICTLISTENDPOINT}${KERALANUMBER}`)
@@ -33,15 +34,19 @@ function App() {
         setLoadingDist(false);
       })
     //call api every given interval. starting on mount
-    const timerId = setInterval(getData, INTERVAL);
-    return () => clearInterval(timerId);
+    // timerId.current = setInterval(getData, INTERVAL);
+    return () => clearInterval(timerId.current);
   }, []);
   useEffect(() => {
+    console.log("cleared", timerId.current)
+    clearInterval(timerId.current);
     getData();
+    timerId.current = setInterval(getData, INTERVAL);
+    console.log("new for next", timerId.current)
   }, [district]);
   const getData = async () => {
-    console.log("distRef.current",distRef.current,"loadingRef.current",loadingRef.current)
-    if (distRef.current && !loadingRef.current) {
+    console.log("distRef.current",distRef.current,"loadingRef.current",loadingRef.current,"timerId.current", timerId.current)
+    if (distRef.current) {
       console.log("calling api")
       setLoading(true);
       const dateInput = moment().format('DD-MM-YYYY');
