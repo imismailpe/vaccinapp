@@ -14,9 +14,12 @@ function App() {
   const distRef = useRef(district);
   distRef.current = district;
   const [loading, setLoading] = useState(false);
+  const loadingRef = useRef(loading);
+  loadingRef.current = loading;
   const [loadingDist, setLoadingDist] = useState(false);
-  let timerId;
+  // let timerId;
   const INTERVAL = 10000;
+  const [lastRefreshTime, setlastRefreshTime] = useState(moment().format('LTS'));
   useEffect(() => {
     setLoadingDist(true);
     axios.get(`${APIBASEURL}${DISTRICTLISTENDPOINT}${KERALANUMBER}`)
@@ -29,29 +32,33 @@ function App() {
         alert("error:", e)
         setLoadingDist(false);
       })
-    //nested settimeout to refresh data every given interval
-    timerId = setTimeout(function tick() {
-      clearTimeout(timerId);
-      getData();
-      timerId = setTimeout(tick, INTERVAL);
-    }, INTERVAL);
-    return () => clearTimeout(timerId);
+    //call api every given interval. starting on mount
+    const timerId = setInterval(getData, INTERVAL);
+    return () => clearInterval(timerId);
   }, []);
   useEffect(() => {
     getData();
   }, [district]);
-  const getData = () => {
-    setLoading(true);
-    const dateInput = moment().format('DD-MM-YYYY');
-    distRef.current && axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${distRef.current}&date=${dateInput}`)
-      .then(resp => {
-        setCenterList(resp.data.centers);
-        setLoading(false);
-      })
-      .catch(e => {
-        alert("error:", e);
-        setLoading(false);
-      })
+  const getData = async () => {
+    console.log("distRef.current",distRef.current,"loadingRef.current",loadingRef.current)
+    if (distRef.current && !loadingRef.current) {
+      console.log("calling api")
+      setLoading(true);
+      const dateInput = moment().format('DD-MM-YYYY');
+      axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${distRef.current}&date=${dateInput}`)
+        .then(resp => {
+          setCenterList(resp.data.centers);
+          setLoading(false);
+          setlastRefreshTime(moment().format('LTS'));
+        })
+        .catch(e => {
+          alert("error:", e);
+          setLoading(false);
+        })
+    }
+    else{
+      console.log("skipped api")
+    }
   }
   return (
     <div className="App">
@@ -74,11 +81,11 @@ function App() {
             </>
         }
       </div>
-      <div>Data will auto refresh in every {INTERVAL/1000} seconds.</div>
+      <div>Auto refreshes in every {INTERVAL / 1000} seconds. Last refresh:{lastRefreshTime}</div>
       <div className='chatWindow'>
         {
-          // loading === true ? 'Loading...'
-          //   :
+          loading === true ? 'Loading...'
+            :
             centerList.length > 0 ? centerList.map(center => {
               return (
                 <div key={center.center_id} className='messageInBubble'>
@@ -90,8 +97,7 @@ function App() {
                   {
                     center.sessions.length > 0 && center.sessions.map(session => {
                       return (
-                        loading === true ? 'Loading...'
-                        :<div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
+                        <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
                           <div className='vaccineName'>{session.vaccine}</div>
                           <div className='vaccineDate'>{session.date}</div>
                           <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
