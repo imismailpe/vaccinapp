@@ -45,7 +45,7 @@ function App() {
     console.log("new for next", timerId.current)
   }, [district]);
   const getData = async () => {
-    console.log("distRef.current",distRef.current,"loadingRef.current",loadingRef.current,"timerId.current", timerId.current)
+    console.log("distRef.current", distRef.current, "loadingRef.current", loadingRef.current, "timerId.current", timerId.current)
     if (distRef.current) {
       console.log("calling api")
       setLoading(true);
@@ -61,7 +61,7 @@ function App() {
           setLoading(false);
         })
     }
-    else{
+    else {
       console.log("skipped api")
     }
   }
@@ -89,40 +89,40 @@ function App() {
       <div>Auto refreshes in every {INTERVAL / 1000} seconds. Last refresh:{lastRefreshTime}</div>
       <div className='chatWindow'>
         {
-          loading === true ? 'Loading...'
-            :
-            centerList.length > 0 ? centerList.map(center => {
-              return (
-                <div key={center.center_id} className='messageInBubble'>
-                  <div className='centerTitle'>
-                    <div className='centerName'>{center.name}-{center.block_name}</div>
-                    <div className={center.fee_type === 'Free' ? 'greenText centerFee' : 'redText centerFee'}>{center.fee_type}</div>
-                  </div>
-                  <div className='centerAddress'>{center.address} - {center.pincode}</div>
-                  {
-                    center.sessions.length > 0 && center.sessions.map(session => {
-                      return (
-                        <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
-                          <div className='vaccineName'>{session.vaccine}</div>
-                          <div className='vaccineDate'>{session.date}</div>
-                          <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
-                          <div className='slotContainer'>
-                            {
-                              session.slots.length > 0 && session.slots.map(slot => {
-                                return (
-                                  <div key={slot} className='slotTime'>{slot}</div>
-                                )
-                              })
-                            }
-                          </div>
-                        </div>
-                      )
-                    })
-                  }
+          // loading === true ? 'Loading...'
+          //   :
+          centerList.length > 0 ? centerList.map(center => {
+            return (
+              <div key={center.center_id} className='messageInBubble'>
+                <div className='centerTitle'>
+                  <div className='centerName'>{center.name}-{center.block_name}</div>
+                  <div className={center.fee_type === 'Free' ? 'greenText centerFee' : 'redText centerFee'}>{center.fee_type}</div>
                 </div>
-              )
-            })
-              : 'No Centers are available for the selected district. Refresh after some time.'
+                <div className='centerAddress'>{center.address} - {center.pincode}</div>
+                {
+                  center.sessions.length > 0 && center.sessions.map(session => {
+                    return (
+                      <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
+                        <div className='vaccineName'>{loading === true ? 'Refreshing...' : session.vaccine}</div>
+                        <div className='vaccineDate'>{session.date}</div>
+                        <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
+                        <div className='slotContainer'>
+                          {
+                            session.slots.length > 0 && session.slots.map(slot => {
+                              return (
+                                <div key={slot} className='slotTime'>{slot}</div>
+                              )
+                            })
+                          }
+                        </div>
+                      </div>
+                    )
+                  })
+                }
+              </div>
+            )
+          })
+            : 'No Centers are available for the selected district. Refresh after some time.'
         }
       </div>
     </div>
