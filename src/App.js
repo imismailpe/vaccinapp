@@ -108,9 +108,9 @@ function App() {
                         <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
                         <div className='slotContainer'>
                           {
-                            session.slots.length > 0 && session.slots.map(slot => {
+                            session.slots.length > 0 && session.slots.map((slot, index) => {
                               return (
-                                <div key={slot} className='slotTime'>{slot}</div>
+                                <div key={index} className='slotTime'>{slot.seats} seats at {slot.time}</div>
                               )
                             })
                           }
