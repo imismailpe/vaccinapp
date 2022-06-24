@@ -105,12 +105,12 @@ function App() {
                       <div key={session.session_id} className={session.available_capacity ? 'availableBG sessionContainer' : 'notAvailableBG sessionContainer'}>
                         <div className='vaccineName'>{loading === true ? 'Refreshing...' : session.vaccine}</div>
                         <div className='vaccineDate'>{session.date}</div>
-                        <div className='vaccineCapacity'>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}, Dose1: {session.available_capacity_dose1}, Dose2: {session.available_capacity_dose2}</div>
+                        <div className='vaccineCapacity'><span>Age limit: {session.min_age_limit || 'NA'} to {session.max_age_limit || 'NA'}</span> <span>Dose1: {session.available_capacity_dose1}</span> <span>Dose2: {session.available_capacity_dose2}</span></div>
                         <div className='slotContainer'>
                           {
                             session.slots.length > 0 && session.slots.map((slot, index) => {
                               return (
-                                <div key={index} className='slotTime'>{slot.seats} seats at {slot.time}</div>
+                                <div key={index} className='slotTime'>{`${slot.time} (${slot.seats} seats)`}</div>
                               )
                             })
                           }
@@ -125,6 +125,7 @@ function App() {
             : 'No Centers are available for the selected district. Refresh after some time.'
         }
       </div>
+      <div>Have suggestions? Please submit at <a href='https://github.com/imismailpe/vaccinapp'>https://github.com/imismailpe/vaccinapp</a></div>
     </div>
   );
 }
