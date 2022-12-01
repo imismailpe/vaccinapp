@@ -92,14 +92,16 @@
   position: sticky;
   top: 0;
   padding: 2px;
+  margin: 0 -5px;
   display: grid;
   grid-template-columns: 7fr 1fr;
   /* From https://css.glass */
-  background: rgba(0, 130, 202, 0.56);
+  background: rgba(66, 143, 255, 0.56);
+  border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(6.8px);
   -webkit-backdrop-filter: blur(6.8px);
-  border: 1px solid rgba(0, 130, 202, 0.33);
+  border: 1px solid rgba(66, 143, 255, 0.33);
   color: #fff;
 }
 .centerName{
