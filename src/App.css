@@ -3,9 +3,9 @@
   width: 100%;
   height: 100%;
   color: #fff;
-  background: #3C3B3F;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #605C3C, #3C3B3F);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #605C3C, #3C3B3F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #355C7D;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #C06C84, #6C5B7B, #355C7D);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #C06C84, #6C5B7B, #355C7D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .App-logo {
@@ -72,15 +72,18 @@
   grid-template-rows: repeat(5, max-content);
   grid-template-columns: repeat(8, 1fr);
   margin-bottom: 5px;
-  box-shadow: grey 3px 4px 5px;
   height: fit-content;
   width: 400px;
   max-width: 100vw;
   box-sizing: border-box;
   row-gap: 4px;
-  background: #000000;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* From https://css.glass */
+  background: rgba(0, 0, 0, 0.48);
+  border-radius: 4px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+  border: 1px solid rgba(0, 0, 0, 0.33);  
   color: #fff;
 }
 .centerTitle{
@@ -138,16 +141,22 @@
   grid-column: 1/9;
 }
 .availableBG{
-  background: #ADD100;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #7B920A, #ADD100);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #7B920A, #ADD100); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: #fff;
+  /* From https://css.glass */
+  background: rgba(71, 255, 86, 0.48);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+  border: 1px solid rgba(71, 255, 86, 0.33);  color: #fff;
 }
 .notAvailableBG{
-  background: #e52d27;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #b31217, #e52d27);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #b31217, #e52d27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  color: #fff;
+  /* From https://css.glass */
+  background: rgba(255, 71, 71, 0.48);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px);
+  border: 1px solid rgba(255, 71, 71, 0.33);  color: #fff;
 }
 .vaccineDate{
   grid-row: 1/2;
