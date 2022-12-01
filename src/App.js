@@ -59,6 +59,7 @@ function App() {
         .catch(e => {
           alert("error:", e);
           setLoading(false);
+          window.location.reload();
         })
     }
     else {
