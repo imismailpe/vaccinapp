@@ -3,13 +3,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 const APIBASEURL = 'https://cdn-api.co-vin.in/api/v2';
+const STATELISTENDPOINT = '/admin/location/states';
 const DISTRICTLISTENDPOINT = '/admin/location/districts/';
 const KERALANUMBER = '17';
 const DATABYDISTRICTENDPOINT = '/appointment/sessions/public/calendarByDistrict?&district_id=';
 
 function App() {
+  const [stateList, setStateList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [centerList, setCenterList] = useState([]);
+  const [state, setState] = useState('');
   const [district, setDistrict] = useState('');
   const distRef = useRef(district);
   distRef.current = district;
@@ -17,31 +20,71 @@ function App() {
   const loadingRef = useRef(loading);
   loadingRef.current = loading;
   const [loadingDist, setLoadingDist] = useState(false);
+  const [loadingStates, setLoadingStates] = useState(false);
   // let timerId;
-  const INTERVAL = 30000;
+  const INTERVAL = 10000;
   const [lastRefreshTime, setlastRefreshTime] = useState(moment().format('LTS'));
   const timerId = useRef(null);
-  useEffect(() => {
+  const getStates = async () => {
+    setLoadingStates(true);
+    axios.get(`${APIBASEURL}${STATELISTENDPOINT}`)
+      .then(resp => {
+        setStateList(resp.data.states || []);
+        setLoadingStates(false);
+        if(resp.data.states && resp.data.states.length > 0){
+          setState(resp.data.states[17].state_id);
+        }
+      })
+      .catch(e => {
+        alert("Error in getting states:", e);
+        setLoadingStates(false);
+        // window.location.reload();
+      });
+  }
+  const getDistricts = async (stateId) => {
     setLoadingDist(true);
-    axios.get(`${APIBASEURL}${DISTRICTLISTENDPOINT}${KERALANUMBER}`)
+    setDistrictList([]);
+    setCenterList([]);
+    setDistrict('');
+    distRef.current = null;
+    axios.get(`${APIBASEURL}${DISTRICTLISTENDPOINT}${stateId}`)
       .then(resp => {
         setDistrictList(resp.data.districts || []);
         setLoadingDist(false);
-        resp.data.districts && resp.data.districts.length > 0 && setDistrict(resp.data.districts[0].district_id);
+        if(resp.data.districts && resp.data.districts.length > 0){
+          setDistrict(resp.data.districts[0].district_id);
+          distRef.current = resp.data.districts[0].district_id;
+        }
       })
       .catch(e => {
-        alert("error:", e)
+        alert("Error in getting districts:", e);
         setLoadingDist(false);
-      })
+        setState(stateList[17].state_id);
+        // window.location.reload();
+      });
+  }
+  useEffect(() => {
+    getStates();
     //call api every given interval. starting on mount
     // timerId.current = setInterval(getData, INTERVAL);
     return () => clearInterval(timerId.current);
   }, []);
   useEffect(() => {
     // console.log("cleared", timerId.current)
-    clearInterval(timerId.current);
-    getData();
-    timerId.current = setInterval(getData, INTERVAL);
+    if(state){
+      clearInterval(timerId.current);
+      getDistricts(state);  
+    }
+    // timerId.current = setInterval(getData, INTERVAL);
+    // console.log("new for next", timerId.current)
+  }, [state]);
+  useEffect(() => {
+    // console.log("cleared", timerId.current)
+    if(district){
+      clearInterval(timerId.current);
+      getData();
+      timerId.current = setInterval(getData, INTERVAL);  
+    }
     // console.log("new for next", timerId.current)
   }, [district]);
   const getData = async () => {
@@ -52,15 +95,20 @@ function App() {
       const dateInput = moment().format('DD-MM-YYYY');
       axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${distRef.current}&date=${dateInput}`)
         .then(resp => {
-          setCenterList(resp.data.centers);
-          setLoading(false);
+          console.log("resp.data?.centers", resp.data?.centers)
+          setCenterList(resp.data?.centers || []);
           setlastRefreshTime(moment().format('LTS'));
+          setLoading(false);
         })
         .catch(e => {
-          alert("error:", e);
-          setLoading(false);
+          alert("Error in getting centers:", e);
+          // window.location.reload();
+          // setCenterList([]);
+          // setDistrict(districtList[0].district_id);
+          // distRef.current = districtList[0].district_id;
+          // setLoading(false);
           window.location.reload();
-        })
+        });
     }
     else {
       console.log("skipped api")
@@ -68,7 +116,25 @@ function App() {
   }
   return (
     <div className="App">
-      <div>Select your district to see Covid vaccine slots</div>
+      <div className='distList'>
+        {
+          loadingStates === true ? 'Loading...'
+            : <>
+              {
+                stateList.length > 0 ?
+                  <div className=''>
+                    {stateList.map(stateItem => {
+                      return (
+                        <div className={stateItem.state_id === state ? 'chatItem selectedDist' : 'chatItem'} key={stateItem.state_id} onClick={() => setState(stateItem.state_id)}>{stateItem.state_name}</div>
+                      )
+                    })}
+                  </div>
+                  : 'No States available'
+              }
+            </>
+        }
+      </div>
+      <hr />
       <div className='distList'>
         {
           loadingDist === true ? 'Loading...'
@@ -90,8 +156,8 @@ function App() {
       <div>Auto refreshes in every {INTERVAL / 1000} seconds. Last refresh:{lastRefreshTime}</div>
       <div className='chatWindow'>
         {
-          // loading === true ? 'Loading...'
-          //   :
+          loading === true ? 'Loading...'
+            :
           centerList.length > 0 ? centerList.map(center => {
             return (
               <div key={center.center_id} className='messageInBubble'>
