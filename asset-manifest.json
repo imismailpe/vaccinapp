@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/vaccinapp/static/css/main.4d8e6b29.chunk.css",
-    "main.js": "/vaccinapp/static/js/main.86f89567.chunk.js",
-    "main.js.map": "/vaccinapp/static/js/main.86f89567.chunk.js.map",
+    "main.js": "/vaccinapp/static/js/main.c55dfc0a.chunk.js",
+    "main.js.map": "/vaccinapp/static/js/main.c55dfc0a.chunk.js.map",
     "runtime-main.js": "/vaccinapp/static/js/runtime-main.7632dd61.js",
     "runtime-main.js.map": "/vaccinapp/static/js/runtime-main.7632dd61.js.map",
-    "static/js/2.cb4abb75.chunk.js": "/vaccinapp/static/js/2.cb4abb75.chunk.js",
-    "static/js/2.cb4abb75.chunk.js.map": "/vaccinapp/static/js/2.cb4abb75.chunk.js.map",
+    "static/js/2.e96e8070.chunk.js": "/vaccinapp/static/js/2.e96e8070.chunk.js",
+    "static/js/2.e96e8070.chunk.js.map": "/vaccinapp/static/js/2.e96e8070.chunk.js.map",
     "static/js/3.3c4c64d2.chunk.js": "/vaccinapp/static/js/3.3c4c64d2.chunk.js",
     "static/js/3.3c4c64d2.chunk.js.map": "/vaccinapp/static/js/3.3c4c64d2.chunk.js.map",
     "index.html": "/vaccinapp/index.html",
     "static/css/main.4d8e6b29.chunk.css.map": "/vaccinapp/static/css/main.4d8e6b29.chunk.css.map",
-    "static/js/2.cb4abb75.chunk.js.LICENSE.txt": "/vaccinapp/static/js/2.cb4abb75.chunk.js.LICENSE.txt"
+    "static/js/2.e96e8070.chunk.js.LICENSE.txt": "/vaccinapp/static/js/2.e96e8070.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7632dd61.js",
-    "static/js/2.cb4abb75.chunk.js",
+    "static/js/2.e96e8070.chunk.js",
     "static/css/main.4d8e6b29.chunk.css",
-    "static/js/main.86f89567.chunk.js"
+    "static/js/main.c55dfc0a.chunk.js"
   ]
 }
