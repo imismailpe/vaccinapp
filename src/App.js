@@ -99,6 +99,11 @@ function App() {
                   <div className={center.fee_type === 'Free' ? 'greenText centerFee' : 'redText centerFee'}>{center.fee_type}</div>
                 </div>
                 <div className='centerAddress'>{center.address} - {center.pincode}</div>
+                <div>
+                  {
+                    center.vaccine_fees.map(vac => <div className='slotTime'>{`${vac.vaccine} : ₹ ${vac.fee}`}</div>)
+                  }
+                </div>
                 {
                   center.sessions.length > 0 && center.sessions.map(session => {
                     return (
