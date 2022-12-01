@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/vaccinapp/static/css/main.f54c33d4.chunk.css",
-    "main.js": "/vaccinapp/static/js/main.9de8a434.chunk.js",
-    "main.js.map": "/vaccinapp/static/js/main.9de8a434.chunk.js.map",
+    "main.js": "/vaccinapp/static/js/main.139938ad.chunk.js",
+    "main.js.map": "/vaccinapp/static/js/main.139938ad.chunk.js.map",
     "runtime-main.js": "/vaccinapp/static/js/runtime-main.7632dd61.js",
     "runtime-main.js.map": "/vaccinapp/static/js/runtime-main.7632dd61.js.map",
     "static/js/2.cb4abb75.chunk.js": "/vaccinapp/static/js/2.cb4abb75.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.7632dd61.js",
     "static/js/2.cb4abb75.chunk.js",
     "static/css/main.f54c33d4.chunk.css",
-    "static/js/main.9de8a434.chunk.js"
+    "static/js/main.139938ad.chunk.js"
   ]
 }
