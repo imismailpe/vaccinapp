@@ -18,7 +18,7 @@ function App() {
   loadingRef.current = loading;
   const [loadingDist, setLoadingDist] = useState(false);
   // let timerId;
-  const INTERVAL = 10000;
+  const INTERVAL = 30000;
   const [lastRefreshTime, setlastRefreshTime] = useState(moment().format('LTS'));
   const timerId = useRef(null);
   useEffect(() => {
@@ -38,16 +38,16 @@ function App() {
     return () => clearInterval(timerId.current);
   }, []);
   useEffect(() => {
-    console.log("cleared", timerId.current)
+    // console.log("cleared", timerId.current)
     clearInterval(timerId.current);
     getData();
     timerId.current = setInterval(getData, INTERVAL);
-    console.log("new for next", timerId.current)
+    // console.log("new for next", timerId.current)
   }, [district]);
   const getData = async () => {
-    console.log("distRef.current", distRef.current, "loadingRef.current", loadingRef.current, "timerId.current", timerId.current)
+    // console.log("distRef.current", distRef.current, "loadingRef.current", loadingRef.current, "timerId.current", timerId.current)
     if (distRef.current) {
-      console.log("calling api")
+      // console.log("calling api")
       setLoading(true);
       const dateInput = moment().format('DD-MM-YYYY');
       axios.get(`${APIBASEURL}${DATABYDISTRICTENDPOINT}${distRef.current}&date=${dateInput}`)
