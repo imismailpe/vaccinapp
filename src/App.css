@@ -145,8 +145,8 @@
   background: rgba(71, 255, 86, 0.48);
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4.1px);
-  -webkit-backdrop-filter: blur(4.1px);
+  /* backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px); */
   border: 1px solid rgba(71, 255, 86, 0.33);  color: #fff;
 }
 .notAvailableBG{
@@ -154,8 +154,8 @@
   background: rgba(255, 71, 71, 0.48);
   border-radius: 8px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(4.1px);
-  -webkit-backdrop-filter: blur(4.1px);
+  /* backdrop-filter: blur(4.1px);
+  -webkit-backdrop-filter: blur(4.1px); */
   border: 1px solid rgba(255, 71, 71, 0.33);  color: #fff;
 }
 .vaccineDate{
